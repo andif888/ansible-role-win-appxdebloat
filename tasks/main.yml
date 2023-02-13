@@ -7,17 +7,49 @@
 - name: Remove Appx
   ansible.windows.win_shell: |
     [regex]$WhitelistedApps = "{{ win_appxdebloat_regex_whitelist_apps | join('|') }}"
+    Get-AppxPackage -AllUsers | Where-Object {($_.Name -NotMatch $WhitelistedApps) -and ($_.NonRemovable -eq $false) -and ($_.IsFramework -eq $false)} | Remove-AppxPackage -AllUsers
+  register: win_appxdebloat_remove_appx_result
+  ignore_errors: true
 
-    Get-AppxPackage -AllUsers | Where-Object {$_.Name -NotMatch $WhitelistedApps} | Remove-AppxPackage -ErrorAction SilentlyContinue
-    # Run this again to avoid error on 1803 or having to reboot.
-    Get-AppxPackage -AllUsers | Where-Object {$_.Name -NotMatch $WhitelistedApps} | Remove-AppxPackage -ErrorAction SilentlyContinue
+- name: Debug win_appxdebloat_remove_appx_result
+  ansible.builtin.debug:
+    var: win_appxdebloat_remove_appx_result
 
+- name: Remove Appx 2nd
+  ansible.windows.win_shell: |
+    [regex]$WhitelistedApps = "{{ win_appxdebloat_regex_whitelist_apps | join('|') }}"
+    Get-AppxPackage -AllUsers | Where-Object {($_.Name -NotMatch $WhitelistedApps) -and ($_.NonRemovable -eq $false) -and ($_.IsFramework -eq $false)} | Remove-AppxPackage -AllUsers
+  register: win_appxdebloat_remove_appx2_result
+  ignore_errors: true
+
+- name: Debug win_appxdebloat_remove_appx2_result
+  ansible.builtin.debug:
+    var: win_appxdebloat_remove_appx2_result
+
+- name: Remove AppxProvisionedPackage
+  ansible.windows.win_shell: |
+    [regex]$WhitelistedApps = "{{ win_appxdebloat_regex_whitelist_apps | join('|') }}"
     $AppxRemoval = Get-AppxProvisionedPackage -Online | Where-Object {$_.PackageName -NotMatch $WhitelistedApps} 
     ForEach ( $App in $AppxRemoval) {
       Remove-AppxProvisionedPackage -Online -PackageName "$App.PackageName"
     }
-  register: win_appxdebloat_remove_result
+  register: win_appxdebloat_remove_appxprovisioned_result
+  ignore_errors: true
 
-- name: Debug win_appxdebloat_remove_result
+- name: Debug win_appxdebloat_remove_appxprovisioned_result
   ansible.builtin.debug:
-    var: win_appxdebloat_remove_result
+    var: win_appxdebloat_remove_appxprovisioned_result
+
+- name: Remove AppxProvisionedPackage 2nd
+  ansible.windows.win_shell: |
+    [regex]$WhitelistedApps = "{{ win_appxdebloat_regex_whitelist_apps | join('|') }}"
+    $AppxRemoval = Get-AppxProvisionedPackage -Online | Where-Object {$_.PackageName -NotMatch $WhitelistedApps}
+    ForEach ( $App in $AppxRemoval) {
+      Remove-AppxProvisionedPackage -Online -PackageName "$App.PackageName"
+    }
+  register: win_appxdebloat_remove_appxprovisioned2_result
+  ignore_errors: true
+
+- name: Debug win_appxdebloat_remove_appxprovisioned2_result
+  ansible.builtin.debug:
+    var: win_appxdebloat_remove_appxprovisioned2_result

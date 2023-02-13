@@ -1,7 +1,7 @@
 ---
 # defaults file for ansible-role-win-debloat
 
-# @var win_debloat_regex_whitelist_apps:description: List of whitelisted apps
+# @var win_appxdebloat_regex_whitelist_apps:description: List of whitelisted apps
 win_appxdebloat_regex_whitelist_apps:
   - ".NET"
   - "Framework"

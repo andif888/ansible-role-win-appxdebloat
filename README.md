@@ -6,7 +6,6 @@ Role to remove appx packages in Windows
 
 - [Default Variables](#default-variables)
   - [win_appxdebloat_regex_whitelist_apps](#win_appxdebloat_regex_whitelist_apps)
-  - [win_debloat_regex_whitelist_apps](#win_debloat_regex_whitelist_apps)
 - [Dependencies](#dependencies)
 - [License](#license)
 - [Author](#author)
@@ -16,6 +15,8 @@ Role to remove appx packages in Windows
 ## Default Variables
 
 ### win_appxdebloat_regex_whitelist_apps
+
+List of whitelisted apps
 
 #### Default value
 
@@ -45,10 +46,6 @@ win_appxdebloat_regex_whitelist_apps:
   - Microsoft.Windows.Photos
   - CanonicalGroupLimited.UbuntuonWindows
 ```
-
-### win_debloat_regex_whitelist_apps
-
-List of whitelisted apps
 
 
 
