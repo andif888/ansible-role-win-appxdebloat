@@ -1,0 +1,28 @@
+---
+# defaults file for ansible-role-win-debloat
+
+# @var win_debloat_regex_whitelist_apps:description: List of whitelisted apps
+win_appxdebloat_regex_whitelist_apps:
+  - ".NET"
+  - "Framework"
+  - "Microsoft.DesktopAppInstaller"
+  - "Microsoft.FreshPaint"
+  - "Microsoft.HEIFImageExtension"
+  - "Microsoft.MicrosoftStickyNotes"
+  - "Microsoft.MSPaint"
+  - "Microsoft.Paint3D"  
+  - "Microsoft.ScreenSketch"
+  - "Microsoft.SecHealthUI"
+  - "Microsoft.StorePurchaseApp"
+  - "Microsoft.VCLibs"
+  - "Microsoft.VP9VideoExtensions"
+  - "Microsoft.WebMediaExtensions"
+  - "Microsoft.WebpImageExtension"  
+  - "Microsoft.WindowsCalculator"
+  - "Microsoft.WindowsCamera"
+  - "Microsoft.WindowsNotepad"
+  - "Microsoft.WindowsTerminal"
+  - "Microsoft.WindowsSoundRecorder"
+  - "Microsoft.WindowsStore"
+  - "Microsoft.Windows.Photos"
+  - "CanonicalGroupLimited.UbuntuonWindows"

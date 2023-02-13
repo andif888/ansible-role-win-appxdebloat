@@ -1,0 +1,23 @@
+---
+# tasks file for ansible-role-win-debloat
+- name: Debug Whitelist Apps
+  ansible.builtin.debug:
+    msg: "{{ win_appxdebloat_regex_whitelist_apps | join('|') }}"
+
+- name: Remove Appx
+  ansible.windows.win_shell: |
+    [regex]$WhitelistedApps = "{{ win_appxdebloat_regex_whitelist_apps | join('|') }}"
+
+    Get-AppxPackage -AllUsers | Where-Object {$_.Name -NotMatch $WhitelistedApps} | Remove-AppxPackage -ErrorAction SilentlyContinue
+    # Run this again to avoid error on 1803 or having to reboot.
+    Get-AppxPackage -AllUsers | Where-Object {$_.Name -NotMatch $WhitelistedApps} | Remove-AppxPackage -ErrorAction SilentlyContinue
+
+    $AppxRemoval = Get-AppxProvisionedPackage -Online | Where-Object {$_.PackageName -NotMatch $WhitelistedApps} 
+    ForEach ( $App in $AppxRemoval) {
+      Remove-AppxProvisionedPackage -Online -PackageName "$App.PackageName"
+    }
+  register: win_appxdebloat_remove_result
+
+- name: Debug win_appxdebloat_remove_result
+  ansible.builtin.debug:
+    var: win_appxdebloat_remove_result
