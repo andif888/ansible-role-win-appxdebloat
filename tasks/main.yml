@@ -43,10 +43,8 @@
 - name: Remove AppxProvisionedPackage 2nd
   ansible.windows.win_shell: |
     [regex]$WhitelistedApps = "{{ win_appxdebloat_regex_whitelist_apps | join('|') }}"
-    $AppxRemoval = Get-AppxProvisionedPackage -Online | Where-Object {$_.PackageName -NotMatch $WhitelistedApps}
-    ForEach ( $App in $AppxRemoval) {
-      Remove-AppxProvisionedPackage -Online -PackageName "$App.PackageName"
-    }
+    Get-AppxProvisionedPackage -Online | Where-Object {$_.PackageName -NotMatch $WhitelistedApps} | Remove-AppxProvisionedPackage -Online
+    
   register: win_appxdebloat_remove_appxprovisioned2_result
   ignore_errors: true
 

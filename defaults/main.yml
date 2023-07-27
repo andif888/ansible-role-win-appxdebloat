@@ -4,6 +4,7 @@
 # @var win_appxdebloat_regex_whitelist_apps:description: List of whitelisted apps
 win_appxdebloat_regex_whitelist_apps:
   - ".NET"
+  - "Microsoft.549981C3F5F10"
   - "Framework"
   - "Microsoft.DesktopAppInstaller"
   - "Microsoft.FreshPaint"
