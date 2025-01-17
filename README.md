@@ -109,6 +109,7 @@ win_appxdebloat_regex_whitelist_apps:
   - Microsoft.ScreenSketch
   - Microsoft.SecHealthUI
   - Microsoft.StorePurchaseApp
+  - Microsoft.UI.Xaml
   - Microsoft.VCLibs
   - Microsoft.VP9VideoExtensions
   - Microsoft.WebMediaExtensions

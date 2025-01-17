@@ -75,7 +75,7 @@
     name: WinRM
   register: result_service_winrm_started
   until: result_service_winrm_started.services[0].state == "started"
-  retries: 10
+  retries: "{{ win_appxdebloat_check_winrm_retries }}"
   delay: 15
   when:
     - win_appxdebloat_check_winrm
