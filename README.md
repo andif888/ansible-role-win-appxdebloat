@@ -6,8 +6,8 @@ Role to remove appx packages in Windows
 
 - [Requirements](#requirements)
 - [Default Variables](#default-variables)
-  - [win_appxdebloat_](#win_appxdebloat_)
   - [win_appxdebloat_check_winrm](#win_appxdebloat_check_winrm)
+  - [win_appxdebloat_check_winrm_retries](#win_appxdebloat_check_winrm_retries)
   - [win_appxdebloat_loop_count](#win_appxdebloat_loop_count)
   - [win_appxdebloat_post_reboot_delay](#win_appxdebloat_post_reboot_delay)
   - [win_appxdebloat_pre_reboot_delay](#win_appxdebloat_pre_reboot_delay)
@@ -27,16 +27,24 @@ Role to remove appx packages in Windows
 
 ## Default Variables
 
-### win_appxdebloat_
-
-
-
 ### win_appxdebloat_check_winrm
+
+Wait for WinRM avaible until continue
 
 #### Default value
 
 ```YAML
 win_appxdebloat_check_winrm: false
+```
+
+### win_appxdebloat_check_winrm_retries
+
+Number if retries to check if WinRM is available
+
+#### Default value
+
+```YAML
+win_appxdebloat_check_winrm_retries: 20
 ```
 
 ### win_appxdebloat_loop_count

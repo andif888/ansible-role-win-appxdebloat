@@ -1,8 +1,11 @@
 ---
 # loop_task file for ansible-role-win-debloat
 
-# @var win_appxdebloat_:description: 
+# @var win_appxdebloat_check_winrm:description: Wait for WinRM avaible until continue
 win_appxdebloat_check_winrm: false
+
+# @var win_appxdebloat_check_winrm_retries:description: Number if retries to check if WinRM is available
+win_appxdebloat_check_winrm_retries: 20
 
 # @var win_appxdebloat_reboot_after:description: Set to true to reboot during loops
 win_appxdebloat_reboot_after: true
