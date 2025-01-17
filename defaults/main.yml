@@ -1,5 +1,26 @@
 ---
-# defaults file for ansible-role-win-debloat
+# loop_task file for ansible-role-win-debloat
+
+# @var win_appxdebloat_:description: 
+win_appxdebloat_check_winrm: false
+
+# @var win_appxdebloat_reboot_after:description: Set to true to reboot during loops
+win_appxdebloat_reboot_after: true
+
+# @var win_appxdebloat_post_reboot_delay:description: Seconds to wait after the reboot command was successful before attempting to validate the system rebooted successfully.
+win_appxdebloat_post_reboot_delay: 30
+
+# @var win_appxdebloat_pre_reboot_delay:description: Seconds to wait before reboot. Passed as a parameter to the reboot command.
+win_appxdebloat_pre_reboot_delay: 30
+
+# @var win_appxdebloat_reboot_timeout:description: Maximum seconds to wait for machine to re-appear on the network and respond to a test command.
+win_appxdebloat_reboot_timeout: 1200
+
+# @var win_appxdebloat_show_debug:description: Show debug information
+win_appxdebloat_show_debug: false
+
+# @var win_appxdebloat_loop_count:description: Number of loops to run
+win_appxdebloat_loop_count: 4
 
 # @var win_appxdebloat_regex_whitelist_apps:description: List of whitelisted apps
 win_appxdebloat_regex_whitelist_apps:
@@ -15,6 +36,7 @@ win_appxdebloat_regex_whitelist_apps:
   - "Microsoft.ScreenSketch"
   - "Microsoft.SecHealthUI"
   - "Microsoft.StorePurchaseApp"
+  - "Microsoft.UI.Xaml"
   - "Microsoft.VCLibs"
   - "Microsoft.VP9VideoExtensions"
   - "Microsoft.WebMediaExtensions"

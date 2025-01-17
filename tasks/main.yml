@@ -1,53 +1,7 @@
 ---
-# tasks file for ansible-role-win-debloat
-- name: Debug Whitelist Apps
-  ansible.builtin.debug:
-    msg: "{{ win_appxdebloat_regex_whitelist_apps | join('|') }}"
-
-- name: Remove Appx
-  ansible.windows.win_shell: |
-    [regex]$WhitelistedApps = "{{ win_appxdebloat_regex_whitelist_apps | join('|') }}"
-    Get-AppxPackage -AllUsers | Where-Object {($_.Name -NotMatch $WhitelistedApps) -and ($_.NonRemovable -eq $false) -and ($_.IsFramework -eq $false)} | Remove-AppxPackage -AllUsers
-  register: win_appxdebloat_remove_appx_result
-  ignore_errors: true
-
-- name: Debug win_appxdebloat_remove_appx_result
-  ansible.builtin.debug:
-    var: win_appxdebloat_remove_appx_result
-
-- name: Remove Appx 2nd
-  ansible.windows.win_shell: |
-    [regex]$WhitelistedApps = "{{ win_appxdebloat_regex_whitelist_apps | join('|') }}"
-    Get-AppxPackage -AllUsers | Where-Object {($_.Name -NotMatch $WhitelistedApps) -and ($_.NonRemovable -eq $false) -and ($_.IsFramework -eq $false)} | Remove-AppxPackage -AllUsers
-  register: win_appxdebloat_remove_appx2_result
-  ignore_errors: true
-
-- name: Debug win_appxdebloat_remove_appx2_result
-  ansible.builtin.debug:
-    var: win_appxdebloat_remove_appx2_result
-
-- name: Remove AppxProvisionedPackage
-  ansible.windows.win_shell: |
-    [regex]$WhitelistedApps = "{{ win_appxdebloat_regex_whitelist_apps | join('|') }}"
-    $AppxRemoval = Get-AppxProvisionedPackage -Online | Where-Object {$_.PackageName -NotMatch $WhitelistedApps} 
-    ForEach ( $App in $AppxRemoval) {
-      Remove-AppxProvisionedPackage -Online -PackageName "$App.PackageName"
-    }
-  register: win_appxdebloat_remove_appxprovisioned_result
-  ignore_errors: true
-
-- name: Debug win_appxdebloat_remove_appxprovisioned_result
-  ansible.builtin.debug:
-    var: win_appxdebloat_remove_appxprovisioned_result
-
-- name: Remove AppxProvisionedPackage 2nd
-  ansible.windows.win_shell: |
-    [regex]$WhitelistedApps = "{{ win_appxdebloat_regex_whitelist_apps | join('|') }}"
-    Get-AppxProvisionedPackage -Online | Where-Object {$_.PackageName -NotMatch $WhitelistedApps} | Remove-AppxProvisionedPackage -Online
-    
-  register: win_appxdebloat_remove_appxprovisioned2_result
-  ignore_errors: true
-
-- name: Debug win_appxdebloat_remove_appxprovisioned2_result
-  ansible.builtin.debug:
-    var: win_appxdebloat_remove_appxprovisioned2_result
+# This file contains the default tasks for the ansible-role-win-debloat role,
+# which is used to remove unwanted Appx packages from Windows installations.
+- name: Include the loop task file for win_appxdebloat
+  include_tasks: "{{ role_path }}/tasks/loop_task.yml"
+  loop: "{{ range(win_appxdebloat_loop_count) | list }}"
+...
